@@ -35,5 +35,3 @@ Final model: linear regression on log(price) with 16 features.
 - `submissions/submission.csv` - our final predictions
 
 To run it, put `train.csv` and `test.csv` from the Kaggle data tab into a `data/` folder and run the notebook.
-
-Claude was used to push the files to github. 
