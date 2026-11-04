@@ -1,53 +1,37 @@
-# Predicting House Prices in Ames, Iowa
+# House Prices Project
 
-**Team:** Jasper Nash, Jaden Kwon, Akhil Lewis
+Team: Jasper Nash, Jaden Kwon, Akhil Lewis
 
-Our entry for the [Regression for house prices](https://www.kaggle.com/competitions/regression-for-house-prices)
-Kaggle competition: predict the sale price of 260 houses in Ames, Iowa. Submissions are scored on RMSE in dollars.
+This is our project for the [Regression for house prices](https://www.kaggle.com/competitions/regression-for-house-prices)
+Kaggle competition. We predicted the sale price of houses in Ames, Iowa. It's scored with RMSE in dollars.
 
-## Final model
+## What we did
 
-A scikit-learn `Pipeline` that fills in missing values with `SimpleImputer`, encodes quality ratings with
-`OrdinalEncoder` and `Neighborhood`/`SaleCondition` with `OneHotEncoder`, then fits a `LinearRegression` to
-**log(SalePrice)** using 16 features.
+- looked at the data and took out one weird house (really big but sold cheap because it wasn't finished)
+- started with simple baselines (guessing the average, then just OverallQual)
+- used 16 features in a sklearn pipeline (SimpleImputer, OrdinalEncoder, OneHotEncoder, LinearRegression)
+- tried polynomial degrees 1-3. degree 2 helped, degree 3 overfit
+- predicted log(price) instead of price, which worked best
 
-| Model | Test RMSE (25% held out) |
+Final model: linear regression on log(price) with 16 features.
+
+| Model | Test RMSE |
 |---|---|
-| Predict the mean price | $79,207 |
-| `LinearRegression` on `OverallQual` only | $47,945 |
-| All 16 features | $26,421 |
-| All features + polynomial degree 2 | $22,527 |
-| All features + polynomial degree 3 (overfits) | $38,914 |
-| **All features, log(price) (final)** | **$20,783** |
+| guess the average | 79,207 |
+| just OverallQual | 47,945 |
+| all 16 features | 26,421 |
+| polynomial degree 2 | 22,527 |
+| polynomial degree 3 | 38,914 |
+| log(price) (final) | 20,783 |
 
 | Kaggle submission | Score |
 |---|---|
-| First submission (13-feature Ridge regression) | $25,571 |
-| Final model (`submissions/submission.csv`) | _[add score]_ |
+| First submission (Ridge regression) | 25,571 |
+| Final model | _[add score]_ |
 
-## Our process
+## Files
 
-1. **Explore:** price is driven mostly by overall quality and size. One huge, unfinished house sold far below
-   its size and quality, so we dropped houses over 4,500 sq ft from training.
-2. **Build up from baselines** with a train/test split, adding one idea at a time.
-3. **Model complexity:** polynomial features help at degree 2, then overfit badly at degree 3.
-4. **Predict log(price):** with a log target, a plain linear model beats the polynomial models, so we keep the
-   simpler one.
+- `house_prices.ipynb` - the notebook with all our code
+- `submissions/submission.csv` - our final predictions
 
-The notebook walks through each step.
-
-## Repository contents
-
-| Path | What it is |
-|---|---|
-| `house_prices.ipynb` | The full analysis, executed with outputs |
-| `submissions/submission.csv` | Our final Kaggle predictions |
-| `requirements.txt` | Python packages needed |
-
-## Running it
-
-1. Download `train.csv` and `test.csv` from the competition's
-   [Data tab](https://www.kaggle.com/competitions/regression-for-house-prices/data) (folder `ames/`) into `data/`.
-   The data isn't included in this repo because it's subject to the competition rules.
-2. `pip install -r requirements.txt`
-3. Open `house_prices.ipynb` and run all cells.
+To run it, put `train.csv` and `test.csv` from the Kaggle data tab into a `data/` folder and run the notebook.
