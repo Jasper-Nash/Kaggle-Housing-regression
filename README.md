@@ -27,7 +27,7 @@ Final model: linear regression on log(price) with 16 features.
 | Kaggle submission | Score |
 |---|---|
 | First submission (Ridge regression) | 25,571 |
-| Final model | _[add score]_ |
+| Final model | 24,483 |
 
 ## Files
 
